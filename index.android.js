@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   ActivityIndicator,
   Alert,
@@ -14,6 +14,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToolbarAndroid,
   TouchableHighlight,
   View
 } from 'react-native';
@@ -27,6 +28,25 @@ var escalators = [
   { id: 6, top: 'Westin', bottom: 'Fogo De Chao', up: true, down: true },
   { id: 7, top: 'Gap', bottom: 'Tiffany\'s', up: true, down: true },
 ];
+
+class EscalatorStatusSummary extends Component {
+  constructor(props) {
+    super(props);
+
+    this.total = this.props.escalators.length * 2;
+    this.broken = this.props.escalators.reduce(
+      function (total, escalator) {
+        if (!escalator.up) total++;
+        if (!escalator.down) total++;
+        return total;
+      }, 0
+    );
+  }
+
+  render() {
+    return <Text>{ this.broken } broken out of { this.total }</Text>;
+  }
+}
 
 class EscalatorList extends Component {
   constructor(props) {
@@ -67,7 +87,9 @@ class Escalator extends Component {
       return (
         <Text style={{ fontSize: 15 }}>
           { this.props.bottom }
-          <Text style={{ fontWeight: 'bold', fontSize: 22 }}> ↗ </Text>
+          { "  " }
+          <Icon name="md-arrow-up" size={ 20 } />
+          { "  " }
           { this.props.top }
         </Text>
       );
@@ -75,7 +97,9 @@ class Escalator extends Component {
       return (
         <Text style={{ fontSize: 15, flex: 1 }}>
           { this.props.top }
-          <Text style={{ fontWeight: 'bold', fontSize: 22 }}> ↘ </Text>
+          { "  " }
+          <Icon name="md-arrow-down" size={ 20 } />
+          { "  " }
           { this.props.bottom}
         </Text>
       );
@@ -136,7 +160,7 @@ class Escalator extends Component {
               { this.getNameForDirection('up') }
             </View>
           </TouchableHighlight>
-          <Icon name="info-with-circle"
+          <Icon name="md-information-circle"
                 size={ 15 }
                 color="#aaa"
                 style={{ margin: 5 }}
@@ -153,7 +177,7 @@ class Escalator extends Component {
               { this.getNameForDirection('down') }
             </View>
           </TouchableHighlight>
-          <Icon name="info-with-circle"
+          <Icon name="md-information-circle"
                 size={ 15 }
                 color="#aaa"
                 style={{ margin: 5 }}
@@ -174,10 +198,10 @@ class CheckEx extends Component {
         style;
 
     if (this.props.on == true) {
-      symbol = '✔';
+      symbol = <Icon name="md-checkmark-circle" size={ 20 } style={{ color: 'green' }} />;
       style = styles.checkexOn;
     } else {
-      symbol = '✘';
+      symbol = <Icon name="md-close-circle" size={ 20 } style={{ color: 'red' }} />;
       style = styles.checkexOff;
     }
 
@@ -187,14 +211,41 @@ class CheckEx extends Component {
   }
 }
 
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  _onBack = () => {
+    this.props.navigator.pop();
+  }
+
+  render() {
+    if (this.props.back) {
+      return (
+        <Icon.ToolbarAndroid
+          style={ styles.navbar }
+          navIconName="md-arrow-back"
+          onIconClicked={ this._onBack }
+          title={ this.props.title } />
+      );
+    } else {
+      return (
+        <Icon.ToolbarAndroid
+          style={ styles.navbar }
+          title={ this.props.title } />
+      );
+    }
+  }
+}
+
 class ListScene extends Component {
   render() {
     return (
       <View style={ styles.container }>
+        <Navbar title="Copley Place Escalators" navigator={ this.props.navigator } />
 
-        <Text style={ styles.title }>
-          <Text style={{ fontSize: 30 }}>⇅</Text> Copley Place Escalator Status
-        </Text>
+        <EscalatorStatusSummary escalators={ escalators } />
 
         <EscalatorList escalators={ escalators } navigator={ this.props.navigator } />
       </View>
@@ -213,20 +264,19 @@ class InfoScene extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ height: 40, padding: 5 }}>Info for { this.props.escalator }</Text>
+      <View style={ styles.container }>
+        <Navbar title="Escalator Detail" navigator={ this.props.navigator } back={ true } />
+
+        <Text style={{ height: 40, padding: 5 }}>{ this.props.escalator }</Text>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
           <ActivityIndicator animating={ true } size="large" />
         </View>
-        <TouchableHighlight onPress={ this._onTouchBack }>
-          <Text style={{ height: 30, padding: 5 }}>Go back</Text>
-        </TouchableHighlight>
       </View>
     );
   }
 }
 
-export default class AwesomeProject extends Component {
+export default class CopleyEscalators extends Component {
   _renderScene = (route, navigator) => {
     console.log('Route = ' + route.name);
 
@@ -258,48 +308,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     backgroundColor: '#fff'
   },
   escalatorList: {
     flex: 1,
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
   escalatorRow: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    height: 40,
+    height: 35,
     padding: 5,
     backgroundColor: '#ffffff',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#cccccc',
+    borderBottomColor: '#cccccc'
   },
   title: {
     color: '#000',
     fontSize: 20,
     textAlign: 'center',
     alignSelf: 'stretch',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
   checkexOn: {
     width: 25,
     height: 25,
     fontSize: 20,
-    color: '#33ee33',
+    color: '#33ee33'
   },
   checkexOff: {
     width: 25,
     height: 25,
     fontSize: 20,
-    color: '#ee3333',
+    color: '#ee3333'
   },
+  navbar: {
+    height: 54,
+    backgroundColor: '#EFAC1B'
+  }
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('CopleyEscalators', () => CopleyEscalators);
