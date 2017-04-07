@@ -7,6 +7,7 @@ import {
   View
 } from 'react-native';
 import { Styles } from '../styles/styles';
+import VisibleEscalatorList from '../containers/VisibleEscalatorList';
 import EscalatorList from '../components/EscalatorList';
 import EscalatorStatusSummary from '../components/EscalatorStatusSummary';
 import Navbar from '../components/Navbar';
@@ -19,7 +20,7 @@ export default class ListScene extends Component {
 
         <EscalatorStatusSummary escalators={ this.props.escalators } />
 
-        <EscalatorList escalators={ this.props.escalators } navigator={ this.props.navigator } />
+        <VisibleEscalatorList navigator={ this.props.navigator } />
       </View>
     );
   }

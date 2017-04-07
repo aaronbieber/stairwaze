@@ -18,11 +18,13 @@ export default class EscalatorList extends Component {
           function (e) {
             return <Escalator
                        key={ e.id }
+                       id={ e.id }
                        top={ e.top }
                        bottom={ e.bottom }
                        up={ e.up }
                        down={ e.down }
-                       navigator={ this.props.navigator } />;
+                       navigator={ this.props.navigator }
+                       onEscalatorClick={ this.props.onEscalatorClick }/>;
           }, this
         )}
       </ScrollView>

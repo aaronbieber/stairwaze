@@ -13,11 +13,6 @@ import CheckEx from './CheckEx';
 export default class Escalator extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      up: this.props.up,
-      down: this.props.down
-    };
   }
 
   getNameForDirection(direction) {
@@ -49,10 +44,13 @@ export default class Escalator extends Component {
       'Confirm',
       'Is the UP escalator from "' +
         this.props.bottom + '" to "' + this.props.top +
-        '" really ' + ((this.state.up) ? 'broken?' : 'fixed?'),
+        '" really ' + ((this.props.up) ? 'broken?' : 'fixed?'),
       [
         {text: 'No'},
-        {text: 'Yes', onPress: () => this.setState({ up: !this.state.up }) }
+        {text: 'Yes',
+         //onPress: () => this.setState({ up: !this.state.up })
+         onPress: () => this.props.onEscalatorClick(this.props.id, 'up')
+        }
       ]
     );
   }
@@ -62,10 +60,13 @@ export default class Escalator extends Component {
       'Confirm',
       'Is the DOWN escalator from "' +
         this.props.top + '" to "' + this.props.bottom +
-        '" really ' + ((this.state.down) ? 'broken?' : 'fixed?'),
+        '" really ' + ((this.props.down) ? 'broken?' : 'fixed?'),
       [
         {text: 'No'},
-        {text: 'Yes', onPress: () => this.setState({ down: !this.state.down }) }
+        {text: 'Yes',
+         //onPress: () => this.setState({ down: !this.state.down })
+         onPress: () => this.props.onEscalatorClick(this.props.id, 'down')
+        }
       ]
     );
   }
@@ -90,11 +91,11 @@ export default class Escalator extends Component {
         <View style={ Styles.escalatorRow }>
           <TouchableHighlight key="escalator-{ this.props.key }"
                               onPress={ this._onPressUp }
-                              underlayColor="#aaffaa"
-                              activeOpacity={ 0.8 }
+                              underlayColor="#fff"
+                              activeOpacity={ 1 }
                               style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row' }}>
-              <CheckEx on={ this.state.up } />
+              <CheckEx on={ this.props.up } />
               { this.getNameForDirection('up') }
             </View>
           </TouchableHighlight>
@@ -107,11 +108,11 @@ export default class Escalator extends Component {
 
         <View style={ Styles.escalatorRow }>
           <TouchableHighlight onPress={ this._onPressDown }
-                              underlayColor="#aaffaa"
-                              activeOpacity={ 0.8 }
+                              underlayColor="#fff"
+                              activeOpacity={ 1 }
                               style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row' }}>
-              <CheckEx on={ this.state.down } />
+              <CheckEx on={ this.props.down } />
               { this.getNameForDirection('down') }
             </View>
           </TouchableHighlight>
