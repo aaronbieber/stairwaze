@@ -6,8 +6,9 @@ const mapStateToProps = (state, ownProps) => {
   var escalator = state.escalators.items.filter(
     e => e.id == ownProps.selectedEscalator.id
   )[0];
+
   return {
-    fetching: state.fetchingHistory,
+    fetching: state.escalators.fetchingHistory,
     history: escalator.history[ownProps.selectedEscalator.direction],
     escalator
   };

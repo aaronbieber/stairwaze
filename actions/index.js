@@ -70,13 +70,11 @@ export const fetchEscalators = () => {
     setTimeout(function() {
       console.log('escalators fetched');
       dispatch(setEscalators(fakeItems));
-    }, 3000);
+    }, 1000);
   };
 };
 
 export const setEscalatorHistory = (id, direction, history) => {
-  console.log('setting history');
-  console.log(history);
   return {
     type: types.SET_ESCALATOR_HISTORY,
     id,
@@ -86,7 +84,6 @@ export const setEscalatorHistory = (id, direction, history) => {
 };
 
 export const fetchingEscalatorHistory = () => {
-  console.log('fetching history');
   return {
     type: types.FETCHING_ESCALATOR_HISTORY
   };
@@ -127,6 +124,6 @@ export const fetchEscalatorHistory = (id, direction) => {
       };
 
       dispatch(setEscalatorHistory(id, direction, fakeHistory[id][direction]));
-    }, 3000);
+    }, 1000);
   };
 };

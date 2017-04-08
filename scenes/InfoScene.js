@@ -4,7 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Navbar from '../components/Navbar';
+import LiveNavbar from '../containers/LiveNavbar';
 import LiveEscalatorInfo from '../containers/LiveEscalatorInfo';
 import { Styles } from '../styles/styles';
 
@@ -20,8 +20,12 @@ export default class InfoScene extends Component {
   render() {
     return (
       <View style={ Styles.container }>
-        <Navbar title="Escalator Detail" navigator={ this.props.navigator } back={ true } />
-        <LiveEscalatorInfo selectedEscalator={ this.props.escalator } fetching={ true } />
+        <LiveNavbar
+          title="Escalator Detail"
+          navigator={ this.props.navigator }
+          escalator={ this.props.escalator }
+          back={ true } />
+        <LiveEscalatorInfo selectedEscalator={ this.props.escalator } />
       </View>
     );
   }

@@ -59,6 +59,7 @@ export default function escalators(state = initialState, action) {
     };
 
   case types.FETCHING_ESCALATOR_HISTORY:
+    console.log('fetching history');
     return {
       fetching: state.fetching,
       fetchingHistory: true,
@@ -66,7 +67,10 @@ export default function escalators(state = initialState, action) {
     };
 
   case types.SET_ESCALATOR_HISTORY:
-    var newState = {
+    console.log('setting history');
+    console.log(action.history);
+
+    return {
       fetching: state.fetching,
       fetchingHistory: false,
       items: state.items.map(e => {
@@ -76,9 +80,6 @@ export default function escalators(state = initialState, action) {
         return e;
       })
     };
-
-    console.log(state === newState);
-    return newState;
 
   default:
     return state;

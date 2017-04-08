@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styles } from '../styles/styles';
-import { fetchEscalators } from '../actions';
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -12,6 +11,11 @@ export default class Navbar extends Component {
     this.props.navigator.pop();
   }
 
+  _onRefreshEscalatorHistory = () => {
+    this.props.fetchEscalatorHistory(this.props.escalator.id,
+                                     this.props.escalator.direction);
+  }
+
   render() {
     if (this.props.back) {
       return (
@@ -19,6 +23,13 @@ export default class Navbar extends Component {
           style={ Styles.navbar }
           navIconName="md-arrow-back"
           onIconClicked={ this._onBack }
+          actions={[
+            { title: 'Refresh',
+              iconName: 'md-refresh',
+              show: 'always'
+            }
+          ]}
+          onActionSelected={ this._onRefreshEscalatorHistory }
           title={ this.props.title } />
       );
     } else {
@@ -31,7 +42,7 @@ export default class Navbar extends Component {
               show: 'always'
             }
           ]}
-          onActionSelected={ this.props.onRefreshClick }
+          onActionSelected={ this.props.fetchEscalators }
           title={ this.props.title } />
       );
     }
