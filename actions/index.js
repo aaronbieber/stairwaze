@@ -45,7 +45,62 @@ export const fetchEscalators = () => {
 
     const fakeItems = [
       { id: 1, top: 'Currency Exchange', bottom: 'Sur La Table', up: true, down: false,
-        history: {
+        history: { up: [], down: [] }
+      },
+      { id: 2, top: 'Louis Vuitton', bottom: 'Au Bon Pain', up: true, down: true,
+        history: { up: [], down: [] }
+      },
+      { id: 3, top: 'Tiffany\'s', bottom: 'Marriott', up: true, down: true,
+        history: { up: [], down: [] }
+      },
+      { id: 4, top: 'Skylobby', bottom: 'Legal Sea Foods', up: true, down: true,
+        history: { up: [], down: [] }
+      },
+      { id: 5, top: 'Marriott', bottom: 'Star Market', up: true, down: true,
+        history: { up: [], down: [] }
+      },
+      { id: 6, top: 'Westin', bottom: 'Fogo De Chao', up: true, down: true,
+        history: { up: [], down: [] }
+      },
+      { id: 7, top: 'Gap', bottom: 'Tiffany\'s', up: true, down: true,
+        history: { up: [], down: [] }
+      }
+    ];
+
+    setTimeout(function() {
+      console.log('escalators fetched');
+      dispatch(setEscalators(fakeItems));
+    }, 3000);
+  };
+};
+
+export const setEscalatorHistory = (id, direction, history) => {
+  console.log('setting history');
+  console.log(history);
+  return {
+    type: types.SET_ESCALATOR_HISTORY,
+    id,
+    direction,
+    history
+  };
+};
+
+export const fetchingEscalatorHistory = () => {
+  console.log('fetching history');
+  return {
+    type: types.FETCHING_ESCALATOR_HISTORY
+  };
+};
+
+export const fetchEscalatorHistory = (id, direction) => {
+  return (dispatch) => {
+    dispatch(fetchingEscalatorHistory());
+
+    setTimeout(function() {
+      console.log('history fetched');
+
+      var fakeHistory = {
+        1: {
           up: [
             { id: 1,
               timestamp: '2017-04-07 18:00:00 EST',
@@ -69,35 +124,9 @@ export const fetchEscalators = () => {
               event: 'fixed' }
           ]
         }
-      },
-      { id: 2, top: 'Louis Vuitton', bottom: 'Au Bon Pain', up: true, down: true,
-        history_up: [],
-        history_down: []
-      },
-      { id: 3, top: 'Tiffany\'s', bottom: 'Marriott', up: true, down: true,
-        history_up: [],
-        history_down: []
-      },
-      { id: 4, top: 'Skylobby', bottom: 'Legal Sea Foods', up: true, down: true,
-        history_up: [],
-        history_down: []
-      },
-      { id: 5, top: 'Marriott', bottom: 'Star Market', up: true, down: true,
-        history_up: [],
-        history_down: []
-      },
-      { id: 6, top: 'Westin', bottom: 'Fogo De Chao', up: true, down: true,
-        history_up: [],
-        history_down: []
-      },
-      { id: 7, top: 'Gap', bottom: 'Tiffany\'s', up: true, down: true,
-        history_up: [],
-        history_down: [] }
-    ];
+      };
 
-    setTimeout(function() {
-      console.log('promise resolved');
-      dispatch(setEscalators(fakeItems));
+      dispatch(setEscalatorHistory(id, direction, fakeHistory[id][direction]));
     }, 3000);
   };
 };

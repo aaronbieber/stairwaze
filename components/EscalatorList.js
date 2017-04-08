@@ -20,7 +20,7 @@ export default class EscalatorList extends Component {
       'Replacing steps...',
       'Peeling the handrails...',
       'Fixing squeaky wheels...',
-      'Tighting bolts...'
+      'Tightening bolts...'
     ];
 
     return phrases[Math.floor(Math.random() * phrases.length)];

@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes.js';
 
 const initialState = {
   fetching: false,
+  fetchingHistory: false,
   items: []
 };
 
@@ -10,6 +11,7 @@ export default function escalators(state = initialState, action) {
   case types.REPORT_BROKEN:
     return {
       fetching: false,
+      fetchingHistory: false,
       items: state.items.map(e => {
         if (e.id == action.id) {
           e[action.direction] = false;
@@ -21,6 +23,7 @@ export default function escalators(state = initialState, action) {
   case types.REPORT_FIXED:
     return {
       fetching: false,
+      fetchingHistory: false,
       items: state.items.map(e => {
         if (e.id == action.id) {
           e[action.direction] = true;
@@ -32,6 +35,7 @@ export default function escalators(state = initialState, action) {
   case types.TOGGLE:
     return {
       fetching: false,
+      fetchingHistory: false,
       items: state.items.map(e => {
         if (e.id == action.id) {
           e[action.direction] = !e[action.direction];
@@ -43,14 +47,38 @@ export default function escalators(state = initialState, action) {
   case types.FETCHING_ESCALATORS:
     return {
       fetching: true,
+      fetchingHistory: false,
       items: []
     };
 
   case types.SET_ESCALATORS:
     return {
       fetching: false,
+      fetchingHistory: false,
       items: action.escalators
     };
+
+  case types.FETCHING_ESCALATOR_HISTORY:
+    return {
+      fetching: state.fetching,
+      fetchingHistory: true,
+      items: state.items
+    };
+
+  case types.SET_ESCALATOR_HISTORY:
+    var newState = {
+      fetching: state.fetching,
+      fetchingHistory: false,
+      items: state.items.map(e => {
+        if (e.id == action.id) {
+          e.history[action.direction] = action.history;
+        }
+        return e;
+      })
+    };
+
+    console.log(state === newState);
+    return newState;
 
   default:
     return state;

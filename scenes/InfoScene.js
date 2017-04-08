@@ -21,7 +21,7 @@ export default class InfoScene extends Component {
     return (
       <View style={ Styles.container }>
         <Navbar title="Escalator Detail" navigator={ this.props.navigator } back={ true } />
-        <LiveEscalatorInfo selectedEscalator={ this.props.escalator } />
+        <LiveEscalatorInfo selectedEscalator={ this.props.escalator } fetching={ true } />
       </View>
     );
   }

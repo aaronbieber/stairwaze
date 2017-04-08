@@ -10,6 +10,12 @@ import EscalatorName from './EscalatorName';
 import EscalatorHistoryList from './EscalatorHistoryList';
 
 export default class EscalatorInfo extends Component {
+  componentDidMount() {
+    this.props.fetchEscalatorHistory(this.props.selectedEscalator.id,
+                                     this.props.selectedEscalator.direction);
+
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -25,7 +31,8 @@ export default class EscalatorInfo extends Component {
                        }} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
           <EscalatorHistoryList
-            escalator={ this.props.escalator.history[this.props.selectedEscalator.direction] } />
+            fetching={ this.props.fetching }
+            history={ this.props.history } />
         </View>
       </View>
     );
