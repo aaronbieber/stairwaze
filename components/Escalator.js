@@ -9,6 +9,7 @@ import {
 
 import { Styles } from '../styles/styles';
 import CheckEx from './CheckEx';
+import EscalatorName from './EscalatorName';
 
 export default class Escalator extends Component {
   constructor(props) {
@@ -74,14 +75,20 @@ export default class Escalator extends Component {
   _onPressUpInfo = (e) => {
     this.props.navigator.push({
       name: 'Info View',
-      escalator: this.getNameForDirection('up')
+      escalator: {
+        id: this.props.id,
+        direction: 'up'
+      }
     });
   }
 
   _onPressDownInfo = (e) => {
     this.props.navigator.push({
       name: 'Info View',
-      escalator: this.getNameForDirection('down')
+      escalator: {
+        id: this.props.id,
+        direction: 'down'
+      }
     });
   }
 
@@ -96,7 +103,7 @@ export default class Escalator extends Component {
                               style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row' }}>
               <CheckEx on={ this.props.up } />
-              { this.getNameForDirection('up') }
+              <EscalatorName {...this.props} direction="up" />
             </View>
           </TouchableHighlight>
           <Icon name="md-information-circle"
@@ -113,7 +120,7 @@ export default class Escalator extends Component {
                               style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row' }}>
               <CheckEx on={ this.props.down } />
-              { this.getNameForDirection('down') }
+              <EscalatorName {...this.props} direction="down" />
             </View>
           </TouchableHighlight>
           <Icon name="md-information-circle"

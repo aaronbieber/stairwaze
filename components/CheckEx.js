@@ -4,10 +4,6 @@ import { Text } from 'react-native';
 import { Styles } from '../styles/styles';
 
 export default class CheckEx extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     var symbol,
         style;

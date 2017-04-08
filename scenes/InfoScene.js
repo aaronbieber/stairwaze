@@ -5,6 +5,7 @@ import {
   View
 } from 'react-native';
 import Navbar from '../components/Navbar';
+import LiveEscalatorInfo from '../containers/LiveEscalatorInfo';
 import { Styles } from '../styles/styles';
 
 export default class InfoScene extends Component {
@@ -20,11 +21,7 @@ export default class InfoScene extends Component {
     return (
       <View style={ Styles.container }>
         <Navbar title="Escalator Detail" navigator={ this.props.navigator } back={ true } />
-
-        <Text style={{ height: 40, padding: 5 }}>{ this.props.escalator }</Text>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
-          <ActivityIndicator animating={ true } size="large" />
-        </View>
+        <LiveEscalatorInfo selectedEscalator={ this.props.escalator } />
       </View>
     );
   }

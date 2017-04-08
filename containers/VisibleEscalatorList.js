@@ -4,6 +4,7 @@ import EscalatorList from '../components/EscalatorList';
 
 const mapStateToProps = (state) => {
   return {
+    fetching: state.fetching,
     escalators: state.escalators
   };
 };
@@ -12,7 +13,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onEscalatorClick: (id, direction) => {
       dispatch(toggleEscalator(id, direction));
-      return true;
     }
   };
 };

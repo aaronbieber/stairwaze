@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Styles } from '../styles/styles';
+import { fetchEscalators } from '../actions';
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -24,6 +25,13 @@ export default class Navbar extends Component {
       return (
         <Icon.ToolbarAndroid
           style={ Styles.navbar }
+          actions={[
+            { title: 'Refresh',
+              iconName: 'md-refresh',
+              show: 'always'
+            }
+          ]}
+          onActionSelected={ this.props.onRefreshClick }
           title={ this.props.title } />
       );
     }
