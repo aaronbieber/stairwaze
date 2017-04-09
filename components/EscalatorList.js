@@ -18,7 +18,7 @@ export default class EscalatorList extends Component {
     var phrases = [
       'Greasing gears...',
       'Replacing steps...',
-      'Peeling the handrails...',
+      'Peeling off the handrails...',
       'Fixing squeaky wheels...',
       'Tightening bolts...'
     ];
