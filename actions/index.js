@@ -1,4 +1,3 @@
-//import fetch from 'isomorphic-fetch';
 import * as types from './actionTypes';
 
 export const reportBroken = (id, direction) => {
