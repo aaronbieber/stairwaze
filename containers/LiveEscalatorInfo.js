@@ -7,9 +7,16 @@ const mapStateToProps = (state, ownProps) => {
     e => e.id == ownProps.selectedEscalator.id
   )[0];
 
+  var history;
+  if (!('history' in escalator)) {
+    history = [];
+  } else {
+    history = escalator.history[ownProps.selectedEscalator.direction];
+  }
+
   return {
     fetching: state.escalators.fetchingHistory,
-    history: escalator.history[ownProps.selectedEscalator.direction],
+    history: history,
     escalator
   };
 };
