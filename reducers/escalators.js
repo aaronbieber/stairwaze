@@ -68,14 +68,15 @@ export default function escalators(state = initialState, action) {
 
   case types.SET_ESCALATOR_HISTORY:
     console.log('setting history');
-    console.log(action.history);
-
     return {
       fetching: state.fetching,
       fetchingHistory: false,
       items: state.items.map(e => {
         if (e.id == action.id) {
-          e.history[action.direction] = action.history;
+          if (!('history' in e)) {
+            e['history'] = { up: [], down: [] };
+          }
+          e['history'][action.direction] = action.history;
         }
         return e;
       })
