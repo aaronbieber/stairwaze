@@ -112,7 +112,7 @@ export const fetchEscalators = () => {
     console.log('fetching escalators');
 
     // @todo Put a real domain in here, or configuration of some kind
-    fetch('http://192.168.10.81:5000/escalators')
+    fetch('http://192.168.10.81:5000/escalators/')
       .then((response) => response.json())
       .then((responseJson) => dispatch(setEscalators(responseJson)))
       .catch((error) => {

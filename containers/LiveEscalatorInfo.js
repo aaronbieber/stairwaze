@@ -8,18 +8,20 @@ const mapStateToProps = (state, ownProps) => {
   )[0];
 
   var history;
-  if (!('history' in escalator)) {
+  if (!(ownProps.selectedEscalator.id in state.history.items)) {
     history = [];
   } else {
-    history = escalator.history[ownProps.selectedEscalator.direction];
+    history = state.history.items[ownProps.selectedEscalator.id];
   }
 
-  return {
-    saving: state.escalators.saving,
-    fetching: state.escalators.fetchingHistory,
-    history: history,
-    escalator
-  };
+  console.log(ownProps.selectedEscalator.id);
+  console.log(state.history);
+  console.log(history);
+
+  return Object.assign({}, state.history, {
+    escalator,
+    history
+  });
 };
 
 const mapDispatchToProps = (dispatch) => {
