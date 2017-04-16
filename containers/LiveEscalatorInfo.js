@@ -1,4 +1,4 @@
-import { fetchEscalatorHistory } from '../actions';
+import { fetchEscalatorHistory, reportBroken, reportFixed } from '../actions';
 import { connect } from 'react-redux';
 import EscalatorInfo from '../components/EscalatorInfo';
 
@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
+    saving: state.escalators.saving,
     fetching: state.escalators.fetchingHistory,
     history: history,
     escalator
@@ -25,6 +26,14 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchEscalatorHistory: (id, direction) => {
       dispatch(fetchEscalatorHistory(id, direction));
+    },
+
+    reportBroken: (id, direction) => {
+      dispatch(reportBroken(id, direction));
+    },
+
+    reportFixed: (id, direction) => {
+      dispatch(reportFixed(id, direction));
     }
   };
 };

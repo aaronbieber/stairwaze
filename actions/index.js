@@ -1,18 +1,87 @@
 import * as types from './actionTypes';
+var uuid = require('../lib/uuid');
+import { AsyncStorage } from 'react-native';
+
+export const initUserId = () => {
+  return (dispatch) => {
+    return AsyncStorage.getItem('CopleyEscalators:userId')
+      .then((userId) => {
+        if (userId == null) {
+          userId = uuid.uuid();
+        }
+        console.log('User ID is ' + userId);
+        return userId;
+      })
+      .then((userId) => {
+        AsyncStorage.setItem('CopleyEscalators:userId', userId);
+        dispatch(setUserId(userId));
+      })
+      .catch((error) => console.error(error));
+  };
+};
+
+export const setUserId = (userId) => {
+  return {
+    type: types.SET_USER_ID,
+    id: userId
+  };
+};
 
 export const reportBroken = (id, direction) => {
-  return {
-    type: types.REPORT_BROKEN,
-    id,
-    direction
+  return (dispatch) => {
+    dispatch(savingReport());
+
+    return fetch('http://192.168.10.81:5000/escalators/' + id + '/' + direction, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        status: 'broken'
+      })
+    }).then(() => {
+      dispatch(savedReport());
+      dispatch(fetchEscalatorHistory(id, direction));
+      dispatch(fetchEscalators());
+    }).catch(() => {
+      console.error('error saving broken report');
+    });
   };
 };
 
 export const reportFixed = (id, direction) => {
+  return (dispatch) => {
+    dispatch(savingReport());
+
+    return fetch('http://192.168.10.81:5000/escalators/' + id + '/' + direction, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        status: 'fixed'
+      })
+    }).then(() => {
+      dispatch(savedReport());
+      dispatch(fetchEscalatorHistory(id, direction));
+      dispatch(fetchEscalators());
+    }).catch(() => {
+      console.error('error saving fixed report');
+    });
+  };
+};
+
+export const savingReport = () => {
   return {
-    type: types.REPORT_FIXED,
-    id,
-    direction
+    type: types.SAVING_REPORT
+  };
+};
+
+export const savedReport = () => {
+  return {
+    type: types.SAVED_REPORT
   };
 };
 
@@ -78,5 +147,13 @@ export const fetchEscalatorHistory = (id, direction) => {
       .catch((error) => {
         console.error(error);
       });
+  };
+};
+
+export const initUserIdAndFetchEscalators = () => {
+  return (dispatch) => {
+    return dispatch(initUserId()).then(() => {
+      return dispatch(fetchEscalators());
+    });
   };
 };

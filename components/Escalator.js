@@ -40,7 +40,7 @@ export default class Escalator extends Component {
     }
   }
 
-  _onPressUp = (e) => {
+  _onPressUp = () => {
     Alert.alert(
       'Confirm',
       'Is the UP escalator from "' +
@@ -56,7 +56,7 @@ export default class Escalator extends Component {
     );
   }
 
-  _onPressDown = (e) => {
+  _onPressDown = () => {
     Alert.alert(
       'Confirm',
       'Is the DOWN escalator from "' +
@@ -72,7 +72,7 @@ export default class Escalator extends Component {
     );
   }
 
-  _onPressUpInfo = (e) => {
+  _onPressUpInfo = () => {
     this.props.navigator.push({
       name: 'Info View',
       escalator: {
@@ -82,7 +82,7 @@ export default class Escalator extends Component {
     });
   }
 
-  _onPressDownInfo = (e) => {
+  _onPressDownInfo = () => {
     this.props.navigator.push({
       name: 'Info View',
       escalator: {
@@ -96,8 +96,7 @@ export default class Escalator extends Component {
     return (
       <View>
         <View style={ Styles.escalatorRow }>
-          <TouchableHighlight key="escalator-{ this.props.key }"
-                              onPress={ this._onPressUp }
+          <TouchableHighlight onPress={ this._onPressUpInfo }
                               underlayColor="#fff"
                               activeOpacity={ 1 }
                               style={{ flex: 1 }}>
@@ -106,15 +105,10 @@ export default class Escalator extends Component {
               <EscalatorName {...this.props} direction="up" />
             </View>
           </TouchableHighlight>
-          <Icon name="md-information-circle"
-                size={ 15 }
-                color="#aaa"
-                style={{ margin: 5 }}
-                onPress={ this._onPressUpInfo }/>
         </View>
 
         <View style={ Styles.escalatorRow }>
-          <TouchableHighlight onPress={ this._onPressDown }
+          <TouchableHighlight onPress={ this._onPressDownInfo }
                               underlayColor="#fff"
                               activeOpacity={ 1 }
                               style={{ flex: 1 }}>
@@ -123,11 +117,6 @@ export default class Escalator extends Component {
               <EscalatorName {...this.props} direction="down" />
             </View>
           </TouchableHighlight>
-          <Icon name="md-information-circle"
-                size={ 15 }
-                color="#aaa"
-                style={{ margin: 5 }}
-                onPress={ this._onPressDownInfo }/>
         </View>
       </View>
     );

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { AsyncStorage } from 'react-native';
 import CopleyEscalators from '../components/CopleyEscalators';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import { fetchEscalators } from '../actions';
+import { initUserIdAndFetchEscalators } from '../actions';
 import * as reducers from '../reducers';
 
 var reducer = combineReducers(reducers);
@@ -22,4 +23,4 @@ export default class App extends Component {
   }
 }
 
-store.dispatch(fetchEscalators());
+store.dispatch(initUserIdAndFetchEscalators());
