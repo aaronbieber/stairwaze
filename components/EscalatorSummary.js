@@ -8,16 +8,13 @@ import {
 const style = StyleSheet.create({
   summary: {
     textAlign: 'center',
-    padding: 5
+    padding: 5,
+    borderTopColor: '#EF4136',
+    borderTopWidth: 2
   }
 });
 
 export default class EscalatorSummary extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     var total,
         broken;
@@ -30,9 +27,12 @@ export default class EscalatorSummary extends Component {
         return total;
       }, 0
     );
+    percent = Math.round(broken / total * 100, 0);
 
     if (total) {
-      return <Text style={ style.summary }>{ broken } broken out of { total }</Text>;
+      return (
+        <Text style={ style.summary }>{ broken } broken out of { total } ({ percent }%)</Text>
+      );
     } else {
       return <View />;
     }

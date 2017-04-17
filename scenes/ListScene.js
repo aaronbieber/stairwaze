@@ -16,8 +16,8 @@ export default class ListScene extends Component {
     return (
       <View style={ Styles.container }>
         <LiveNavbar title="Stairwaze Copley" navigator={ this.props.navigator } />
-        <LiveEscalatorSummary />
         <VisibleEscalatorList navigator={ this.props.navigator } />
+        <LiveEscalatorSummary />
       </View>
     );
   }
