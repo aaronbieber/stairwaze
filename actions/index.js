@@ -30,7 +30,7 @@ export const setUserId = (userId) => {
   };
 };
 
-export const reportBroken = (id, direction) => {
+export const reportStatus = (id, direction, status) => {
   return (dispatch, getState) => {
     dispatch(savingReport());
 
@@ -46,44 +46,30 @@ export const reportBroken = (id, direction) => {
         },
         body: JSON.stringify({
           user: state.user.id,
-          status: 'broken'
+          status: status
         })
-      })).then(() => {
-        dispatch(savedReport());
-        dispatch(fetchEscalatorHistory(id, direction));
-        dispatch(fetchEscalators());
+      })).then((response) => {
+        if (response.ok) {
+          dispatch(savedReport());
+          dispatch(fetchEscalatorHistory(id, direction));
+          dispatch(fetchEscalators());
+        } else {
+          console.log('save error, code ' + response.status);
+          response.json()
+            .then((j) => dispatch(errorSavingReport(j.message)));
+        }
       }).catch(() => {
         dispatch(errorSavingReport());
       });
   };
 };
 
+export const reportBroken = (id, direction) => {
+  return reportStatus(id, direction, 'broken');
+};
+
 export const reportFixed = (id, direction) => {
-  return (dispatch, getState) => {
-    dispatch(savingReport());
-
-    const state = getState();
-
-    return timeout(
-      5000,
-      fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: state.user.id,
-          status: 'fixed'
-        })
-      })).then(() => {
-        dispatch(savedReport());
-        dispatch(fetchEscalatorHistory(id, direction));
-        dispatch(fetchEscalators());
-      }).catch(() => {
-        dispatch(errorSavingReport());
-      });
-  };
+  return reportStatus(id, direction, 'fixed');
 };
 
 export const savingReport = () => {
@@ -98,9 +84,10 @@ export const savedReport = () => {
   };
 };
 
-export const errorSavingReport = () => {
+export const errorSavingReport = (message = '') => {
   return {
-    type: types.ERROR_SAVING_REPORT
+    type: types.ERROR_SAVING_REPORT,
+    message: message
   };
 };
 

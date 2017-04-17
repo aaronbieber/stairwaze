@@ -31,12 +31,19 @@ export default class EscalatorInfo extends Component {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.savingError && this.props.savingError) {
-      Alert.alert(
-        'Uh oh.',
-        'Your escalator report could not be saved. It is likely ' +
-          'that this app is beginning to squeak and rattle and ' +
-          'will need days of maintenance soon.'
-      );
+      if (this.props.savingErrorMessage.length){
+        Alert.alert(
+          'Uh oh.',
+          this.props.savingErrorMessage
+        );
+      } else {
+        Alert.alert(
+          'Uh oh.',
+          'Your escalator report could not be saved. It is likely ' +
+            'that this app is beginning to squeak and rattle and ' +
+            'will need days of maintenance soon.'
+        );
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   savingError: false,
+  savingErrorMessage: '',
   fetchingError: false,
   saving: false,
   fetching: false,
@@ -40,6 +41,7 @@ export default function history(state = initialState, action) {
     console.log('saving report');
     return Object.assign({}, state, {
       savingError: false,
+      savingErrorMessage: '',
       saving: true
     });
 
@@ -47,6 +49,7 @@ export default function history(state = initialState, action) {
     console.log('saved report');
     return Object.assign({}, state, {
       savingError: false,
+      savingErrorMessage: '',
       saving: false
     });
 
@@ -54,6 +57,7 @@ export default function history(state = initialState, action) {
     console.log('error saving report');
     return Object.assign({}, state, {
       savingError: true,
+      savingErrorMessage: action.message,
       saving: false
     });
 
