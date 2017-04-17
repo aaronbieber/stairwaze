@@ -4,8 +4,8 @@ import EscalatorList from '../components/EscalatorList';
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.fetching,
-    escalators: state.escalators
+    fetching: state.escalators.fetching,
+    escalators: state.escalators.items
   };
 };
 

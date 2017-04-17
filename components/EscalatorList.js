@@ -27,31 +27,31 @@ export default class EscalatorList extends Component {
   }
 
   render() {
-    if (this.props.escalators.items.length) {
+    if (this.props.fetching) {
       return (
-        <ScrollView style={ Styles.escalatorList }>
-          { this.props.escalators.items.map(
-            function (e) {
-              return <Escalator
-                         key={ e.id }
-                         id={ e.id }
-                         top={ e.top }
-                         bottom={ e.bottom }
-                         up={ e.up }
-                         down={ e.down }
-                         navigator={ this.props.navigator }
-                         onEscalatorClick={ this.props.onEscalatorClick }/>;
-            }, this)
-          }
-        </ScrollView>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
+          <Text style={{ textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
+          <ActivityIndicator animating={ true } size="large" />
+        </View>
       );
     } else {
-      if (this.props.escalators.fetching) {
+      if (this.props.escalators.length) {
         return (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
-            <Text style={{ textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
-            <ActivityIndicator animating={ true } size="large" />
-          </View>
+          <ScrollView style={ Styles.escalatorList }>
+            { this.props.escalators.map(
+              function (e) {
+                return <Escalator
+                           key={ e.id }
+                           id={ e.id }
+                           top={ e.top }
+                           bottom={ e.bottom }
+                           up={ e.up }
+                           down={ e.down }
+                           navigator={ this.props.navigator }
+                           onEscalatorClick={ this.props.onEscalatorClick }/>;
+              }, this)
+            }
+          </ScrollView>
         );
       } else {
         return (
