@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 var uuid = require('../lib/uuid');
 import { AsyncStorage } from 'react-native';
 
+const BASE_URL = 'http://localhost:5000';
+
 export const initUserId = () => {
   return (dispatch) => {
     return AsyncStorage.getItem('CopleyEscalators:userId')
@@ -31,7 +33,7 @@ export const reportBroken = (id, direction) => {
   return (dispatch) => {
     dispatch(savingReport());
 
-    return fetch('http://192.168.10.81:5000/escalators/' + id + '/' + direction, {
+    return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,7 +56,7 @@ export const reportFixed = (id, direction) => {
   return (dispatch) => {
     dispatch(savingReport());
 
-    return fetch('http://192.168.10.81:5000/escalators/' + id + '/' + direction, {
+    return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -112,7 +114,7 @@ export const fetchEscalators = () => {
     console.log('fetching escalators');
 
     // @todo Put a real domain in here, or configuration of some kind
-    fetch('http://192.168.10.81:5000/escalators/')
+    fetch(BASE_URL + '/escalators/')
       .then((response) => response.json())
       .then((responseJson) => dispatch(setEscalators(responseJson)))
       .catch((error) => {
@@ -141,7 +143,7 @@ export const fetchEscalatorHistory = (id, direction) => {
     dispatch(fetchingEscalatorHistory());
 
     // @todo Put a real domain in here, or configuration of some kind
-    fetch('http://192.168.10.81:5000/escalators/' + id + '/history/' + direction)
+    fetch(BASE_URL + '/escalators/' + id + '/history/' + direction)
       .then((response) => response.json())
       .then((responseJson) => dispatch(setEscalatorHistory(id, direction, responseJson)))
       .catch((error) => {
