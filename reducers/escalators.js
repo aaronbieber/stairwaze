@@ -2,7 +2,6 @@ import * as types from '../actions/actionTypes.js';
 
 const initialState = {
   fetching: false,
-  saving: false,
   items: []
 };
 
@@ -10,7 +9,6 @@ export default function escalators(state = initialState, action) {
   switch (action.type) {
   case types.REPORT_BROKEN:
     console.log('report broken');
-    console.log(action);
     newState = Object.assign({}, state, {
       fetching: false,
       fetchingHistory: false,
@@ -21,7 +19,6 @@ export default function escalators(state = initialState, action) {
         return e;
       })
     });
-    console.log(newState);
     return newState;
 
   case types.REPORT_FIXED:
@@ -34,7 +31,6 @@ export default function escalators(state = initialState, action) {
         return e;
       })
     });
-    console.log(newState);
     return newState;
 
   case types.FETCHING_ESCALATORS:

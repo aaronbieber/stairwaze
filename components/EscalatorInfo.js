@@ -12,11 +12,6 @@ import EscalatorName from './EscalatorName';
 import EscalatorHistoryList from './EscalatorHistoryList';
 
 export default class EscalatorInfo extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
-
   componentDidMount() {
     this.props.fetchEscalatorHistory(this.props.selectedEscalator.id,
                                      this.props.selectedEscalator.direction);

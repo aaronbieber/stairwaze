@@ -40,38 +40,6 @@ export default class Escalator extends Component {
     }
   }
 
-  _onPressUp = () => {
-    Alert.alert(
-      'Confirm',
-      'Is the UP escalator from "' +
-        this.props.bottom + '" to "' + this.props.top +
-        '" really ' + ((this.props.up) ? 'broken?' : 'fixed?'),
-      [
-        {text: 'No'},
-        {text: 'Yes',
-         //onPress: () => this.setState({ up: !this.state.up })
-         onPress: () => this.props.onEscalatorClick(this.props.id, 'up')
-        }
-      ]
-    );
-  }
-
-  _onPressDown = () => {
-    Alert.alert(
-      'Confirm',
-      'Is the DOWN escalator from "' +
-        this.props.top + '" to "' + this.props.bottom +
-        '" really ' + ((this.props.down) ? 'broken?' : 'fixed?'),
-      [
-        {text: 'No'},
-        {text: 'Yes',
-         //onPress: () => this.setState({ down: !this.state.down })
-         onPress: () => this.props.onEscalatorClick(this.props.id, 'down')
-        }
-      ]
-    );
-  }
-
   _onPressUpInfo = () => {
     this.props.navigator.push({
       name: 'Info View',

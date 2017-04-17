@@ -103,6 +103,7 @@ export const setEscalators = (escalators) => {
 };
 
 export const fetchingEscalators = () => {
+  console.log('fetching escalators');
   return {
     type: types.FETCHING_ESCALATORS
   };
@@ -111,7 +112,7 @@ export const fetchingEscalators = () => {
 export const fetchEscalators = () => {
   return (dispatch) => {
     dispatch(fetchingEscalators());
-    console.log('fetching escalators');
+    console.log('fetch escalators');
 
     // @todo Put a real domain in here, or configuration of some kind
     fetch(BASE_URL + '/escalators/')
