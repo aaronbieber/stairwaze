@@ -14,14 +14,12 @@ const mapStateToProps = (state, ownProps) => {
     history = state.history.items[ownProps.selectedEscalator.id];
   }
 
-  console.log(ownProps.selectedEscalator.id);
-  console.log(state.history);
-  console.log(history);
-
-  return Object.assign({}, state.history, {
+  return {
+    fetching: state.history.fetching,
+    saving: state.history.saving,
     escalator,
     history
-  });
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -13,20 +13,18 @@ export default function history(state = initialState, action) {
   case types.FETCHING_ESCALATOR_HISTORY:
     console.log('fetching history');
     return Object.assign({}, state, {
-      fetchingHistory: true,
+      fetching: true,
       items: state.items
     });
 
   case types.SET_ESCALATOR_HISTORY:
     console.log('setting history');
     newState = Object.assign({}, state, {
-      fetchingHistory: false
+      fetching: false
     });
     newState.items[action.id] = action.history;
 
-    console.log(newState);
     return newState;
-
 
   case types.SAVING_REPORT:
     console.log('saving report');
