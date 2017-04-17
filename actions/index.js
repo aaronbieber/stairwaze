@@ -30,8 +30,10 @@ export const setUserId = (userId) => {
 };
 
 export const reportBroken = (id, direction) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(savingReport());
+
+    const state = getState();
 
     return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
       method: 'POST',
@@ -40,6 +42,7 @@ export const reportBroken = (id, direction) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        user: state.user.id,
         status: 'broken'
       })
     }).then(() => {
@@ -53,8 +56,10 @@ export const reportBroken = (id, direction) => {
 };
 
 export const reportFixed = (id, direction) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(savingReport());
+
+    const state = getState();
 
     return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
       method: 'POST',
@@ -63,6 +68,7 @@ export const reportFixed = (id, direction) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        user: state.user.id,
         status: 'fixed'
       })
     }).then(() => {
