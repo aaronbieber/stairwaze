@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { StyleSheet } from 'react-native';
 import { Styles } from '../styles/styles';
+
+const styles = StyleSheet.create({
+  navbar: {
+    height: 54,
+    backgroundColor: '#EF4136'
+  }
+});
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -20,7 +28,9 @@ export default class Navbar extends Component {
     if (this.props.back) {
       return (
         <Icon.ToolbarAndroid
-          style={ Styles.navbar }
+          style={ styles.navbar }
+          titleColor="white"
+          iconColor="white"
           navIconName="md-arrow-back"
           onIconClicked={ this._onBack }
           actions={[
@@ -35,7 +45,9 @@ export default class Navbar extends Component {
     } else {
       return (
         <Icon.ToolbarAndroid
-          style={ Styles.navbar }
+          style={ styles.navbar }
+          titleColor="white"
+          iconColor="white"
           actions={[
             { title: 'Refresh',
               iconName: 'md-refresh',

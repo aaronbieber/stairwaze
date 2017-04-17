@@ -46,9 +46,5 @@ export const Styles = StyleSheet.create({
     height: 25,
     fontSize: 20,
     color: '#ee3333'
-  },
-  navbar: {
-    height: 54,
-    backgroundColor: '#EFAC1B'
   }
 });

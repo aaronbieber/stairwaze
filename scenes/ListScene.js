@@ -15,7 +15,7 @@ export default class ListScene extends Component {
   render() {
     return (
       <View style={ Styles.container }>
-        <LiveNavbar title="Copley Place Escalators" navigator={ this.props.navigator } />
+        <LiveNavbar title="Stairwaze Copley" navigator={ this.props.navigator } />
         <LiveEscalatorSummary />
         <VisibleEscalatorList navigator={ this.props.navigator } />
       </View>
