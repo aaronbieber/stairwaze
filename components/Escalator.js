@@ -12,10 +12,6 @@ import CheckEx from './CheckEx';
 import EscalatorName from './EscalatorName';
 
 export default class Escalator extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   getNameForDirection(direction) {
     if (direction == 'up') {
       return (
