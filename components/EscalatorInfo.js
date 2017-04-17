@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   ActivityIndicator,
+  Alert,
   Modal,
   Text,
   TouchableOpacity,
@@ -18,16 +19,46 @@ export default class EscalatorInfo extends Component {
 
   }
 
+  escalatorTextName = () => {
+    if (this.props.selectedEscalator.direction == 'up') {
+      return 'UP escalator from ' +
+        this.props.escalator.bottom + ' to ' +
+        this.props.escalator.top;
+    } else {
+      return 'DOWN escalator from ' +
+        this.props.escalator.top + ' to ' +
+        this.props.escalator.bottom;
+    }
+  }
+
   _onBrokenClick = () => {
-    console.log(this.props.selectedEscalator);
-    this.props.reportBroken(this.props.selectedEscalator.id,
-                            this.props.selectedEscalator.direction);
+    Alert.alert(
+      'Confirm',
+      'Is the ' + this.escalatorTextName() +
+        ' really broken?',
+      [
+        {text: 'No'},
+        {text: 'Yes',
+         onPress: () => this.props.reportBroken(this.props.selectedEscalator.id,
+                                                this.props.selectedEscalator.direction)
+        }
+      ]
+    );
   }
 
   _onFixedClick = () => {
-    console.log(this.props.selectedEscalator);
-    this.props.reportFixed(this.props.selectedEscalator.id,
-                           this.props.selectedEscalator.direction);
+    Alert.alert(
+      'Confirm',
+      'Is the ' + this.escalatorTextName() +
+        ' really working?',
+      [
+        {text: 'No'},
+        {text: 'Yes',
+         onPress: () => this.props.reportFixed(this.props.selectedEscalator.id,
+                                               this.props.selectedEscalator.direction)
+        }
+      ]
+    );
   }
 
   render() {
