@@ -78,23 +78,39 @@ export default class EscalatorHistoryList extends Component {
         <ActivityIndicator animating={ true } size="large" />
       );
     } else {
-      if (this.props.history.length) {
+      if (this.props.error) {
         return (
-          <View style={{ flex: 1 }}>
-            <Text style={ styles.historyHeading }>History of Reports</Text>
-            <FlatList
-              keyExtractor={ this.listItemKey }
-              data={ this.props.history }
-              style={ styles.list }
-              renderItem={ this.renderListItem } />
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
+            <Text style={{ textAlign: 'center', fontSize: 40 }}>Uh oh.</Text>
+            <Text style={{ textAlign: 'center', marginTop: 10, padding: 10 }}>
+              The history of reports for this escalator got its Crocs
+              stuck in the moving treads and it was sucked into the
+              underbelly of the mall. Nothing can be done.
+            </Text>
+            <Text style={{ textAlign: 'center' }}>
+              Or you could try refreshing.
+            </Text>
           </View>
         );
       } else {
-        return (
-          <Text style={ styles.noReportsText }>
-            There have been no reports for this escalator... Yet.
-          </Text>
-        )
+        if (this.props.history.length) {
+          return (
+            <View style={{ flex: 1 }}>
+              <Text style={ styles.historyHeading }>History of Reports</Text>
+              <FlatList
+                keyExtractor={ this.listItemKey }
+                data={ this.props.history }
+                style={ styles.list }
+                renderItem={ this.renderListItem } />
+            </View>
+          );
+        } else {
+          return (
+            <Text style={ styles.noReportsText }>
+              There have been no reports for this escalator... Yet.
+            </Text>
+          );
+        }
       }
     }
   }

@@ -15,6 +15,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
+    fetchingError: state.history.fetchingError,
+    savingError: state.history.savingError,
     fetching: state.history.fetching,
     saving: state.history.saving,
     escalator,

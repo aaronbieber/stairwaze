@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes.js';
 
 const initialState = {
   fetching: false,
+  error: false,
   items: []
 };
 
@@ -35,13 +36,21 @@ export default function escalators(state = initialState, action) {
 
   case types.FETCHING_ESCALATORS:
     return Object.assign({}, state, {
+      error: false,
       fetching: true
     });
 
   case types.SET_ESCALATORS:
     return Object.assign({}, state, {
+      error: false,
       fetching: false,
       items: action.escalators
+    });
+
+  case types.ERROR_FETCHING_ESCALATORS:
+    return Object.assign({}, state, {
+      fetching: false,
+      error: true
     });
 
   default:

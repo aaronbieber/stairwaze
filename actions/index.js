@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
-var uuid = require('../lib/uuid');
 import { AsyncStorage } from 'react-native';
+import timeout from '../lib/timeout';
+import uuid from '../lib/uuid';
 
 const BASE_URL = 'http://localhost:5000';
 
@@ -9,7 +10,7 @@ export const initUserId = () => {
     return AsyncStorage.getItem('CopleyEscalators:userId')
       .then((userId) => {
         if (userId == null) {
-          userId = uuid.uuid();
+          userId = uuid();
         }
         console.log('User ID is ' + userId);
         return userId;
@@ -35,23 +36,25 @@ export const reportBroken = (id, direction) => {
 
     const state = getState();
 
-    return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: state.user.id,
-        status: 'broken'
-      })
-    }).then(() => {
-      dispatch(savedReport());
-      dispatch(fetchEscalatorHistory(id, direction));
-      dispatch(fetchEscalators());
-    }).catch(() => {
-      console.error('error saving broken report');
-    });
+    return timeout(
+      5000,
+      fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: state.user.id,
+          status: 'broken'
+        })
+      })).then(() => {
+        dispatch(savedReport());
+        dispatch(fetchEscalatorHistory(id, direction));
+        dispatch(fetchEscalators());
+      }).catch(() => {
+        dispatch(errorSavingReport());
+      });
   };
 };
 
@@ -61,23 +64,25 @@ export const reportFixed = (id, direction) => {
 
     const state = getState();
 
-    return fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: state.user.id,
-        status: 'fixed'
-      })
-    }).then(() => {
-      dispatch(savedReport());
-      dispatch(fetchEscalatorHistory(id, direction));
-      dispatch(fetchEscalators());
-    }).catch(() => {
-      console.error('error saving fixed report');
-    });
+    return timeout(
+      5000,
+      fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: state.user.id,
+          status: 'fixed'
+        })
+      })).then(() => {
+        dispatch(savedReport());
+        dispatch(fetchEscalatorHistory(id, direction));
+        dispatch(fetchEscalators());
+      }).catch(() => {
+        dispatch(errorSavingReport());
+      });
   };
 };
 
@@ -93,11 +98,9 @@ export const savedReport = () => {
   };
 };
 
-export const toggleEscalator = (id, direction) => {
+export const errorSavingReport = () => {
   return {
-    type: types.TOGGLE,
-    id,
-    direction
+    type: types.ERROR_SAVING_REPORT
   };
 };
 
@@ -120,13 +123,19 @@ export const fetchEscalators = () => {
     dispatch(fetchingEscalators());
     console.log('fetch escalators');
 
-    // @todo Put a real domain in here, or configuration of some kind
-    fetch(BASE_URL + '/escalators/')
+    return timeout(5000, fetch(BASE_URL + '/escalators/'))
       .then((response) => response.json())
       .then((responseJson) => dispatch(setEscalators(responseJson)))
       .catch((error) => {
-        console.error(error);
+        dispatch(errorFetchingEscalators());
       });
+  };
+};
+
+export const errorFetchingEscalators = () => {
+  console.log('error fetching escalators');
+  return {
+    type: types.ERROR_FETCHING_ESCALATORS
   };
 };
 
@@ -149,13 +158,19 @@ export const fetchEscalatorHistory = (id, direction) => {
   return (dispatch) => {
     dispatch(fetchingEscalatorHistory());
 
-    // @todo Put a real domain in here, or configuration of some kind
-    fetch(BASE_URL + '/escalators/' + id + '/history/' + direction)
+    return timeout(5000, fetch(BASE_URL + '/escalators/' + id + '/history/' + direction))
       .then((response) => response.json())
       .then((responseJson) => dispatch(setEscalatorHistory(id, direction, responseJson)))
       .catch((error) => {
-        console.error(error);
+        dispatch(errorFetchingEscalatorHistory());
       });
+  };
+};
+
+export const errorFetchingEscalatorHistory = () => {
+  console.log('error fetching escalator history');
+  return {
+    type: types.ERROR_FETCHING_ESCALATOR_HISTORY
   };
 };
 

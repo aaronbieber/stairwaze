@@ -27,38 +27,53 @@ export default class EscalatorList extends Component {
   }
 
   render() {
-    if (this.props.fetching) {
+    if (this.props.error) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
-          <Text style={{ textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
-          <ActivityIndicator animating={ true } size="large" />
+          <Text style={{ textAlign: 'center', fontSize: 40 }}>Uh oh.</Text>
+          <Text style={{ textAlign: 'center', marginTop: 10, padding: 10 }}>
+            Something has gone terribly wrong and a maintenance crew must now
+            be called in to disassemble and reassemble this app four or five
+            times.
+          </Text>
+          <Text style={{ textAlign: 'center' }}>
+            You can also try refreshing.
+          </Text>
         </View>
       );
     } else {
-      if (this.props.escalators.length) {
-        return (
-          <ScrollView style={ Styles.escalatorList }>
-            { this.props.escalators.map(
-              function (e) {
-                return <Escalator
-                           key={ e.id }
-                           id={ e.id }
-                           top={ e.top }
-                           bottom={ e.bottom }
-                           up={ e.up }
-                           down={ e.down }
-                           navigator={ this.props.navigator }
-                           onEscalatorClick={ this.props.onEscalatorClick }/>;
-              }, this)
-            }
-          </ScrollView>
-        );
-      } else {
+      if (this.props.fetching) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
-            <Text style={{ textAlign: 'center' }}>Waiting...</Text>
+            <Text style={{ textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
+            <ActivityIndicator animating={ true } size="large" />
           </View>
         );
+      } else {
+        if (this.props.escalators.length) {
+          return (
+            <ScrollView style={ Styles.escalatorList }>
+              { this.props.escalators.map(
+                function (e) {
+                  return <Escalator
+                             key={ e.id }
+                             id={ e.id }
+                             top={ e.top }
+                             bottom={ e.bottom }
+                             up={ e.up }
+                             down={ e.down }
+                             navigator={ this.props.navigator } />;
+                }, this)
+              }
+            </ScrollView>
+          );
+        } else {
+          return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
+              <Text style={{ textAlign: 'center' }}>Waiting...</Text>
+            </View>
+          );
+        }
       }
     }
   }

@@ -19,6 +19,17 @@ export default class EscalatorInfo extends Component {
 
   }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.savingError && this.props.savingError) {
+      Alert.alert(
+        'Uh oh.',
+        'Your escalator report could not be saved. It is likely ' +
+          'that this app is beginning to squeak and rattle and ' +
+          'will need days of maintenance soon.'
+      );
+    }
+  }
+
   escalatorTextName = () => {
     if (this.props.selectedEscalator.direction == 'up') {
       return 'UP escalator from ' +
@@ -109,6 +120,7 @@ export default class EscalatorInfo extends Component {
 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
           <EscalatorHistoryList
+            error={ this.props.fetchingError }
             fetching={ this.props.fetching }
             history={ this.props.history } />
         </View>

@@ -4,22 +4,14 @@ import EscalatorList from '../components/EscalatorList';
 
 const mapStateToProps = (state) => {
   return {
+    error: state.escalators.error,
     fetching: state.escalators.fetching,
     escalators: state.escalators.items
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onEscalatorClick: (id, direction) => {
-      dispatch(toggleEscalator(id, direction));
-    }
-  };
-};
-
 const VisibleEscalatorList = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(EscalatorList);
 
 export default VisibleEscalatorList;
