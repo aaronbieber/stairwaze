@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View
@@ -11,6 +12,15 @@ import {
 import { Styles } from '../styles/styles';
 import EscalatorName from './EscalatorName';
 import EscalatorHistoryList from './EscalatorHistoryList';
+
+const styles = StyleSheet.create({
+  historyHeading: {
+    fontWeight: 'bold',
+    padding: 5,
+    borderBottomColor: 'silver',
+    borderBottomWidth: 1
+  }
+});
 
 export default class EscalatorInfo extends Component {
   componentDidMount() {
@@ -86,6 +96,13 @@ export default class EscalatorInfo extends Component {
                          borderBottomWidth: 2
                        }} />
 
+        <Text style={{ fontSize: 10, padding: 5 }}>
+          Tap one of these two buttons to report the status of this
+          escalator. NOTE: you may only report once every 30 minutes,
+          and it requires two reports to change the publicly listed
+          status. Stay vigilant.
+        </Text>
+
         <View style={{ flexDirection: 'row', padding: 6, height: 52 }}>
           <TouchableOpacity style={{ flex: 1}}
                             onPress={ this._onBrokenClick }>
@@ -117,6 +134,8 @@ export default class EscalatorInfo extends Component {
             </View>
           </TouchableOpacity>
         </View>
+
+        <Text style={ styles.historyHeading }>History of Reports</Text>
 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
           <EscalatorHistoryList

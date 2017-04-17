@@ -10,12 +10,6 @@ import {
 import { Styles } from '../styles/styles';
 
 const styles = StyleSheet.create({
-  historyHeading: {
-    fontWeight: 'bold',
-    padding: 5,
-    borderBottomColor: 'silver',
-    borderBottomWidth: 1
-  },
   list: {
     flex: 1
   },
@@ -96,7 +90,6 @@ export default class EscalatorHistoryList extends Component {
         if (this.props.history.length) {
           return (
             <View style={{ flex: 1 }}>
-              <Text style={ styles.historyHeading }>History of Reports</Text>
               <FlatList
                 keyExtractor={ this.listItemKey }
                 data={ this.props.history }
