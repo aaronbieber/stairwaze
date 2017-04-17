@@ -37,7 +37,22 @@ const styles = StyleSheet.create({
 });
 
 export default class EscalatorHistoryList extends Component {
-  renderListItem(row) {
+  formatTime(epoch) {
+    var epochInt = parseInt(epoch) * 1000;
+    var date = new Date(epochInt);
+
+    return ['Sun', 'Mon', 'Tue', 'Wed',
+            'Thu', 'Fri', 'Sat'][date.getDay()] + ' ' +
+      ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()] + ' ' +
+      date.getDate() + ', ' +
+      date.getFullYear() + ' at ' +
+      date.getHours() % 12 + ':' +
+      date.getMinutes() + ' ' +
+      (date.getHours() > 12 ? 'pm' : 'am');
+  }
+
+  renderListItem = (row) => {
     let { item, index } = row;
     var colors = [ '#fff', '#efefef' ];
     let style = [
@@ -48,7 +63,7 @@ export default class EscalatorHistoryList extends Component {
     return (
       <View style={ style }>
         <Text style={ styles.event } key={ "history-" + item.id }>{ item.event }</Text>
-        <Text style={ styles.timestamp }>{ item.added }</Text>
+        <Text style={ styles.timestamp }>{ this.formatTime(item.added) }</Text>
       </View>
     );
   }
