@@ -164,7 +164,7 @@ export default class EscalatorInfo extends Component {
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-              <Text style={{ marginBottom: 10 }}>Saving your report...</Text>
+              <Text style={{ marginBottom: 10, fontSize: 20 }}>Saving your report...</Text>
               <ActivityIndicator animating={ true } size={ 50 } />
             </View>
           </View>

@@ -7,6 +7,7 @@ import {
 
 const style = StyleSheet.create({
   summary: {
+    fontSize: 20,
     textAlign: 'center',
     padding: 5,
     borderTopColor: '#EF4136',
