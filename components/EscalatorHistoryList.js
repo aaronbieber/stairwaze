@@ -8,6 +8,7 @@ import {
   View
 } from 'react-native';
 import { Styles } from '../styles/styles';
+import moment from 'moment';
 
 const styles = StyleSheet.create({
   list: {
@@ -34,18 +35,7 @@ const styles = StyleSheet.create({
 
 export default class EscalatorHistoryList extends Component {
   formatTime(epoch) {
-    var epochInt = parseInt(epoch) * 1000;
-    var date = new Date(epochInt);
-
-    return ['Sun', 'Mon', 'Tue', 'Wed',
-            'Thu', 'Fri', 'Sat'][date.getDay()] + ' ' +
-      ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()] + ' ' +
-      date.getDate() + ', ' +
-      date.getFullYear() + ' at ' +
-      date.getHours() % 12 + ':' +
-      date.getMinutes() + ' ' +
-      (date.getHours() > 12 ? 'pm' : 'am');
+    return moment.unix(epoch).toNow(true) + ' ago';
   }
 
   renderListItem = (row) => {
