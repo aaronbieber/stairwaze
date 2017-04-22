@@ -61,10 +61,17 @@ export default class Escalator extends Component {
       <View>
         <View style={ Styles.escalatorRow }>
           <TouchableHighlight onPress={ this._onPressUpInfo }
-                              underlayColor="#fff"
-                              activeOpacity={ 1 }
+                              underlayColor="#000"
+                              activeOpacity={ 0.9 }
                               style={{ flex: 1 }}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{
+                    flexDirection: 'row',
+                    height: 45,
+                    padding: 5,
+                    backgroundColor: '#ffffff',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center'
+                  }}>
               <CheckEx on={ this.props.up } />
               <EscalatorName {...this.props} direction="up" />
             </View>
@@ -73,10 +80,17 @@ export default class Escalator extends Component {
 
         <View style={ Styles.escalatorRow }>
           <TouchableHighlight onPress={ this._onPressDownInfo }
-                              underlayColor="#fff"
-                              activeOpacity={ 1 }
+                              underlayColor="#000"
+                              activeOpacity={ 0.9 }
                               style={{ flex: 1 }}>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{
+                    flexDirection: 'row',
+                    height: 45,
+                    padding: 5,
+                    backgroundColor: '#ffffff',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center'
+                  }}>
               <CheckEx on={ this.props.down } />
               <EscalatorName {...this.props} direction="down" />
             </View>

@@ -15,11 +15,6 @@ export const Styles = StyleSheet.create({
   escalatorRow: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: 45,
-    padding: 5,
-    backgroundColor: '#ffffff',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#cccccc'
   },
