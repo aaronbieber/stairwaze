@@ -6,14 +6,14 @@ import {
 
 export default class ElevatorName extends Component {
   render() {
-    var style = this.props.style || { fontSize: 15 };
+    var style = this.props.style || { fontSize: 20 };
 
     if (this.props.direction == 'up') {
       return (
         <Text style={ style }>
           { this.props.bottom }
           { "  " }
-          <Icon name="md-arrow-up" size={ 20 } />
+          <Icon name="md-arrow-up" size={ 25 } />
           { "  " }
           { this.props.top }
         </Text>
@@ -23,7 +23,7 @@ export default class ElevatorName extends Component {
         <Text style={ style }>
           { this.props.top }
           { "  " }
-          <Icon name="md-arrow-down" size={ 20 } />
+          <Icon name="md-arrow-down" size={ 25 } />
           { "  " }
           { this.props.bottom}
         </Text>

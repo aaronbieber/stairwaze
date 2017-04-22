@@ -15,6 +15,7 @@ import EscalatorHistoryList from './EscalatorHistoryList';
 
 const styles = StyleSheet.create({
   historyHeading: {
+    fontSize: 20,
     fontWeight: 'bold',
     padding: 5,
     borderBottomColor: 'silver',
@@ -95,7 +96,7 @@ export default class EscalatorInfo extends Component {
         <EscalatorName {...this.props.escalator}
                        direction={ this.props.selectedEscalator.direction }
                        style={{
-                         fontSize: 15,
+                         fontSize: 20,
                          textAlign: 'center',
                          padding: 5,
                          fontWeight: 'bold',
@@ -103,7 +104,7 @@ export default class EscalatorInfo extends Component {
                          borderBottomWidth: 2
                        }} />
 
-        <Text style={{ fontSize: 10, padding: 5 }}>
+        <Text style={{ fontSize: 15, padding: 5 }}>
           Tap one of these two buttons to report the status of this
           escalator. NOTE: you may only report once every 30 minutes,
           and it requires two reports to change the publicly listed
@@ -122,7 +123,7 @@ export default class EscalatorInfo extends Component {
                     alignItems: 'center',
                     borderRadius: 4
                   }}>
-              <Text style={{ color: 'white'}}>Broken</Text>
+              <Text style={{ fontSize: 20, color: 'white'}}>Broken</Text>
             </View>
           </TouchableOpacity>
 
@@ -137,7 +138,7 @@ export default class EscalatorInfo extends Component {
                     alignItems: 'center',
                     borderRadius: 4
                   }}>
-              <Text style={{ color: 'white'}}>Working</Text>
+              <Text style={{ fontSize: 20, color: 'white'}}>Working</Text>
             </View>
           </TouchableOpacity>
         </View>

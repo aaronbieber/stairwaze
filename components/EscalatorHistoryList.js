@@ -20,12 +20,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   event: {
+    fontSize: 20,
     flex: 1
   },
   timestamp: {
-    fontSize: 10
+    fontSize: 15
   },
   noReportsText: {
+    fontSize: 20,
     textAlign: 'center'
   }
 });

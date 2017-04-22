@@ -45,7 +45,7 @@ export default class EscalatorList extends Component {
       if (this.props.fetching) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'stretch' }}>
-            <Text style={{ textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
+            <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 10 }}>{ this.randomLoadingPhrase() }</Text>
             <ActivityIndicator animating={ true } size="large" />
           </View>
         );

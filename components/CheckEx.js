@@ -9,10 +9,10 @@ export default class CheckEx extends Component {
         style;
 
     if (this.props.on == true) {
-      symbol = <Icon name="md-checkmark-circle" size={ 20 } style={{ color: 'green' }} />;
+      symbol = <Icon name="md-checkmark-circle" size={ 25 } style={{ color: 'green' }} />;
       style = Styles.checkexOn;
     } else {
-      symbol = <Icon name="md-close-circle" size={ 20 } style={{ color: 'red' }} />;
+      symbol = <Icon name="md-close-circle" size={ 25 } style={{ color: 'red' }} />;
       style = Styles.checkexOff;
     }
 

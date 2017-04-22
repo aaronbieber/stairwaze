@@ -16,8 +16,8 @@ export const Styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    height: 35,
+    alignItems: 'center',
+    height: 45,
     padding: 5,
     backgroundColor: '#ffffff',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -36,13 +36,13 @@ export const Styles = StyleSheet.create({
     marginBottom: 5
   },
   checkexOn: {
-    width: 25,
+    width: 28,
     height: 25,
     fontSize: 20,
     color: '#33ee33'
   },
   checkexOff: {
-    width: 25,
+    width: 28,
     height: 25,
     fontSize: 20,
     color: '#ee3333'
