@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import { AsyncStorage } from 'react-native';
 import timeout from '../lib/timeout';
 import uuid from '../lib/uuid';
+import addAuthHeader from '../lib/auth';
 
 const BASE_URL = 'http://localhost:5000';
 
@@ -40,10 +41,10 @@ export const reportStatus = (id, direction, status) => {
       5000,
       fetch(BASE_URL + '/escalators/' + id + '/' + direction, {
         method: 'POST',
-        headers: {
+        headers: addAuthHeader({
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-        },
+        }),
         body: JSON.stringify({
           user: state.user.id,
           status: status
@@ -110,8 +111,18 @@ export const fetchEscalators = () => {
     dispatch(fetchingEscalators());
     console.log('fetch escalators');
 
-    return timeout(5000, fetch(BASE_URL + '/escalators/'))
-      .then((response) => response.json())
+    return timeout(5000,
+                   fetch(
+                     BASE_URL + '/escalators/', {
+                       headers: addAuthHeader()
+                     }))
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Status code ' + response.status + ' received.');
+        }
+      })
       .then((responseJson) => dispatch(setEscalators(responseJson)))
       .catch((error) => {
         dispatch(errorFetchingEscalators());
@@ -145,8 +156,18 @@ export const fetchEscalatorHistory = (id, direction) => {
   return (dispatch) => {
     dispatch(fetchingEscalatorHistory());
 
-    return timeout(5000, fetch(BASE_URL + '/escalators/' + id + '/history/' + direction))
-      .then((response) => response.json())
+    return timeout(5000,
+                   fetch(
+                     BASE_URL + '/escalators/' + id + '/history/' + direction, {
+                       headers: addAuthHeader()
+                     }))
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Status code ' + response.status + ' received.');
+        }
+      })
       .then((responseJson) => dispatch(setEscalatorHistory(id, direction, responseJson)))
       .catch((error) => {
         dispatch(errorFetchingEscalatorHistory());
